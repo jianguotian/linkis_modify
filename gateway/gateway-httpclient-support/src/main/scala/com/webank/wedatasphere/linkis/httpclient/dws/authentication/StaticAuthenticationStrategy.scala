@@ -16,7 +16,8 @@
 
 package com.webank.wedatasphere.linkis.httpclient.dws.authentication
 
-import com.ning.http.client.Response
+//import com.ning.http.client.Response
+import org.apache.http.HttpResponse
 import com.webank.wedatasphere.linkis.common.utils.ByteTimeUtils
 import com.webank.wedatasphere.linkis.httpclient.authentication.{AbstractAuthenticationStrategy, AuthenticationAction, AuthenticationResult}
 import com.webank.wedatasphere.linkis.httpclient.dws.exception.AuthenticationFailedException
@@ -51,7 +52,8 @@ class StaticAuthenticationStrategy(override protected val sessionMaxAliveTime: L
     action
   }
 
-  override def getAuthenticationResult(response: Response, requestAction: AuthenticationAction): AuthenticationResult = {
+//  override def getAuthenticationResult(response: Response, requestAction: AuthenticationAction): AuthenticationResult = {
+  override def getAuthenticationResult(response: HttpResponse, requestAction: AuthenticationAction): AuthenticationResult = {
     new DWSAuthenticationResult(response, requestAction.serverUrl)
   }
 }
