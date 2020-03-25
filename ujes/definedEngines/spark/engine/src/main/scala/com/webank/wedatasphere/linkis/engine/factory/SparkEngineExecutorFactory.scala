@@ -86,7 +86,8 @@ class SparkEngineExecutorFactory extends EngineExecutorFactory with Logging{
     if (sparkSession == null) throw new SparkSessionNullException(40009, "sparkSession can not be null")
 
     val sc = sparkSession.sparkContext
-    val sqlContext = createSQLContext(sc,options)
+//    val sqlContext = createSQLContext(sc,options)
+    val sqlContext = sparkSession.sqlContext
     sc.hadoopConfiguration.set("mapred.output.compress", MAPRED_OUTPUT_COMPRESS.getValue(options))
     sc.hadoopConfiguration.set("mapred.output.compression.codec",MAPRED_OUTPUT_COMPRESSION_CODEC.getValue(options))
     println("Application report for " + sc.applicationId)
