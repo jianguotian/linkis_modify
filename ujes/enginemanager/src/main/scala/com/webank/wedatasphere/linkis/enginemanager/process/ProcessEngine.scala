@@ -68,8 +68,15 @@ trait ProcessEngine extends Engine with Logging {
     var exitCode: Option[Int] = None
     Future {
       val iterator = IOUtils.lineIterator(process.getInputStream, Configuration.BDP_ENCODING.getValue)
-      while(!EngineState.isCompleted(_state) && iterator.hasNext) {
-        dealStartupLog(iterator.next())
+      try {
+        while(!EngineState.isCompleted(_state) && iterator.hasNext) {
+          dealStartupLog(iterator.next())
+        }
+      } catch {
+        case e: Throwable => {
+          e.printStackTrace()
+          error("DEBUG", e)
+        }
       }
       exitCode = Option(process.waitFor)
       warn(s"$toString has stopped with exit code " + exitCode)

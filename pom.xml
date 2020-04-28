@@ -239,8 +239,8 @@
             </activation>
             <properties>
                 <project.release.version>0.9.3</project.release.version>
-                <netty.version>4.1.17.Final</netty.version>
-                <json4s.version>3.5.3</json4s.version>
+                <netty.version>4.1.42.Final</netty.version>
+                <json4s.version>3.6.6</json4s.version>
             </properties>
         </profile>
         <profile>

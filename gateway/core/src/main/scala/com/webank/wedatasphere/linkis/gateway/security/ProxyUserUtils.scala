@@ -16,6 +16,7 @@
 
 package com.webank.wedatasphere.linkis.gateway.security
 
+import java.io.{File, FileInputStream}
 import java.util.Properties
 import java.util.concurrent.TimeUnit
 
@@ -31,7 +32,9 @@ object ProxyUserUtils extends Logging {
       override def run(): Unit = {
         info("loading proxy users.")
         val newProps = new Properties
-        newProps.load(this.getClass.getResourceAsStream(PROXY_USER_CONFIG.getValue))
+//        newProps.load(this.getClass.getResourceAsStream(PROXY_USER_CONFIG.getValue))
+        val is = new FileInputStream(new File(PROXY_USER_CONFIG.getValue))
+        newProps.load(is)
         props.clear()
         props.putAll(newProps)
       }
@@ -39,6 +42,10 @@ object ProxyUserUtils extends Logging {
   }
 
   def getProxyUser(umUser: String): String = if(ENABLE_PROXY_USER.getValue) {
+    val newProps = new Properties
+
+    props.clear()
+    props.putAll(newProps)
     val proxyUser = props.getProperty(umUser)
     if(StringUtils.isBlank(proxyUser)) umUser else {
       info(s"switched to proxy user $proxyUser for umUser $umUser.")
